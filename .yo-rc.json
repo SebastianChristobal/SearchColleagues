@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "16.13.2",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.12.0"
+    },
+    "version": "1.18.2",
+    "libraryName": "search-colleagues",
+    "libraryId": "c2d4a4d6-c987-40a5-a885-990f005be8de",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "search-colleagues",
+    "solutionShortDescription": "search-colleagues description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "search-colleagues-client-side-solution",
+    "id": "c2d4a4d6-c987-40a5-a885-990f005be8de",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "search-colleagues description"
+      },
+      "longDescription": {
+        "default": "search-colleagues description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "search-colleagues Feature",
+        "description": "The feature that activates elements of the search-colleagues solution.",
+        "id": "07055dbd-2aea-48a5-bab0-a48b6715ff3b",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/search-colleagues.sppkg"
+  }
+}
