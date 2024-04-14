@@ -4,7 +4,7 @@ import type { ISearchColleaguesProps } from './ISearchColleaguesProps';
 import { fetchUsers } from './service/https';
 import { useFetch } from './hooks/useFetch';
 import { ColleaguesSearchBox } from './SearchBox';
-import { PersonaCard } from './PersonaCard';
+import { PersonCard } from './PersonCard/PersonCard';
 const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
   const {
     hasTeamsContext,
@@ -23,7 +23,7 @@ const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
       <section className={`${styles.searchColleagues} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
           <ColleaguesSearchBox onSearch={handleSearch} />
-          <PersonaCard allUsers={fetchAllUsers}/>
+          <PersonCard allUsers={fetchAllUsers}/>
         </div>
       </section>
     );

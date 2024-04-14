@@ -6,6 +6,7 @@ export interface ISearchColleaguesProps {
   environmentMessage?: string;
   hasTeamsContext?: boolean;
   userDisplayName?: string;
+  absoluteSiteUrl?:string;
   context?: any;
   onSearch?: (query: string) => void;
   allUsers?: any[];

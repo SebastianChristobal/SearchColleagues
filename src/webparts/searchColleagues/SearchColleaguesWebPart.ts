@@ -30,7 +30,8 @@ export default class SearchColleaguesWebPart extends BaseClientSideWebPart<ISear
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
-        context: this.context
+        context: this.context,
+        absoluteSiteUrl: this.context.pageContext.web.absoluteUrl
       }
     );
 
