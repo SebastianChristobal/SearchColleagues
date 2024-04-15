@@ -38,7 +38,6 @@ export const PersonCard: React.FC<ISearchColleaguesProps> = ({allUsers, ...props
   const users = allUsers;
   return (
     <>
-
     {users?.map((colleagues: any) => {
       return  <DocumentCard key={colleagues.Id}
         aria-label={
@@ -48,14 +47,19 @@ export const PersonCard: React.FC<ISearchColleaguesProps> = ({allUsers, ...props
         styles={cardStyles}
         onClickHref="http://bing.com"
       >
-       {colleagues.mail !== null &&  <DocumentCardImage height={200} imageFit={ImageFit.cover} imageSrc={`https://ionii.sharepoint.com/_layouts/15/userphoto.aspx?size=L&username=${encodeURIComponent(colleagues.mail.toLowerCase())}`} />}
+       {colleagues.mail !== null && 
+        <DocumentCardImage 
+        height={160} 
+        imageFit={ImageFit.cover} 
+        styles={{root:  { display: 'inline-block', width:'50%', height: '80%', borderRadius: '100px', marginTop: '10px' }}}
+        imageSrc={`https://ionii.sharepoint.com/_layouts/15/userphoto.aspx?size=L&username=${encodeURIComponent(colleagues.mail.toLowerCase())}`} />}
         <DocumentCardDetails>
           <DocumentCardTitle title={colleagues.displayName} shouldTruncate />
           <Person
                 text={colleagues?.jobTitle}
                 secondaryText={colleagues?.officeLocation}
                // tertiaryText={colleagues?.onPremisesExtensionAttributes?.[extensionAttributeValue]}
-               optionaltext={colleagues?.mail === null ? colleagues.userPrincipalName : colleagues?.mail}
+                optionaltext={colleagues?.mobilePhone}
                 userEmail={colleagues?.mail === null ? colleagues.userPrincipalName : colleagues?.mail}
                 //pictureUrl={colleagues?.pictureUrl}
                 //size={PersonaSize.size40}

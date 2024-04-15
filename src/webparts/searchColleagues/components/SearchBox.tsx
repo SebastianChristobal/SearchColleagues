@@ -17,7 +17,7 @@ export const ColleaguesSearchBox: React.FC<ISearchColleaguesProps> = ({ onSearch
     <Stack tokens={stackTokens}
      styles={{
         root: {
-          paddingBottom: 45
+          paddingBottom: 20
         }
       }}
     >
