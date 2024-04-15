@@ -36,4 +36,4 @@ const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
   
 }
 
-export default SearchColleges
+export default SearchColleges;
