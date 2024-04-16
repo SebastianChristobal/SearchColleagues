@@ -15,7 +15,7 @@ export const fetchUsers = async (props: ISearchColleaguesProps): Promise<any[]> 
         const response = await graphClient
         .api('/users')
         .version('v1.0')
-        .select('businessPhones,displayName,givenName,id,jobTitle,mail,mobilePhone,officeLocation,preferredLanguage,surname,userPrincipalName,department')
+        .select('businessPhones,displayName,givenName,id,jobTitle,mail,mobilePhone,officeLocation,preferredLanguage,surname,userPrincipalName,department,country')
         .get();
         return response.value;
     } catch (error) {

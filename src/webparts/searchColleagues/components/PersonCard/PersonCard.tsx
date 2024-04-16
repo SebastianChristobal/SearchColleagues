@@ -15,27 +15,16 @@ import { ImageFit } from '@fluentui/react/lib/Image';
 import { ISearchColleaguesProps } from '../ISearchColleaguesProps';
 import { Person } from '../Persona/Person';
 
-// const people: IDocumentCardActivityPerson[] = [
-//   { name: 'Annie Lindqvist', profileImageSrc: TestImages.personaFemale },
-//   { name: 'Roko Kolar', profileImageSrc: '', initials: 'RK' },
-//   { name: 'Aaron Reid', profileImageSrc: TestImages.personaMale },
-//   { name: 'Christian Bergqvist', profileImageSrc: '', initials: 'CB' },
-// ];
+const cardStyles: IDocumentCardStyles = {
+  root: { display: 'inline-block', marginRight: 10, marginBottom: 10, width: 300, maxWidth: 280 },
+};
 
-// const oneNoteIconProps: IIconProps = {
-//   iconName: 'OneNoteLogo',
-//   styles: { root: { color: '#813a7c', fontSize: '120px', width: '120px', height: '120px' } },
-// };
+export const PersonCard: React.FC<ISearchColleaguesProps> = ({allUsers, filteredUsers, ...props}) => {
+  //const { absoluteSiteUrl } = props;
+  //console.log(absoluteSiteUrl);
 
-
-export const PersonCard: React.FC<ISearchColleaguesProps> = ({allUsers, ...props}) => {
-  const { absoluteSiteUrl } = props;
+  const users = filteredUsers && filteredUsers.length > 0 ? filteredUsers : allUsers;
   
-  console.log(absoluteSiteUrl);
-  const cardStyles: IDocumentCardStyles = {
-    root: { display: 'inline-block', marginRight: 20, marginBottom: 20, width: 320 },
-  };
-  const users = allUsers;
   return (
     <>
     {users?.map((colleagues: any) => {
@@ -47,19 +36,21 @@ export const PersonCard: React.FC<ISearchColleaguesProps> = ({allUsers, ...props
         styles={cardStyles}
         onClickHref="http://bing.com"
       >
-       {colleagues.mail !== null && 
+       {colleagues.userPrincipalName &&
         <DocumentCardImage 
-        height={160} 
+        height={140} 
         imageFit={ImageFit.cover} 
         styles={{root:  { display: 'inline-block', width:'50%', height: '80%', borderRadius: '100px', marginTop: '10px' }}}
-        imageSrc={`https://ionii.sharepoint.com/_layouts/15/userphoto.aspx?size=L&username=${encodeURIComponent(colleagues.mail.toLowerCase())}`} />}
+        imageSrc={colleagues.userPrincipalName && `https://ionii.sharepoint.com/_layouts/15/userphoto.aspx?size=L&username=${encodeURIComponent(colleagues.userPrincipalName.toLowerCase())}`}
+        />
+        }
         <DocumentCardDetails>
           <DocumentCardTitle title={colleagues.displayName} shouldTruncate />
           <Person
                 text={colleagues?.jobTitle}
-                secondaryText={colleagues?.officeLocation}
+                secondaryText={colleagues?.department}
                // tertiaryText={colleagues?.onPremisesExtensionAttributes?.[extensionAttributeValue]}
-                optionaltext={colleagues?.mobilePhone}
+                optionaltext={colleagues?.officeLocation}
                 userEmail={colleagues?.mail === null ? colleagues.userPrincipalName : colleagues?.mail}
                 //pictureUrl={colleagues?.pictureUrl}
                 //size={PersonaSize.size40}

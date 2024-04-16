@@ -3,7 +3,7 @@ import { ISearchColleaguesProps } from "../ISearchColleaguesProps"
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/Dropdown';
 
-const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 },};
+const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left'}};
 const stackTokens: IStackTokens = { childrenGap: 20 };
 
  export const Department: React.FC<ISearchColleaguesProps> = ({allUsers}) =>{
@@ -19,6 +19,11 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
         text: department,
     })).sort();
 
+    const handleChange = (event: any): void =>{
+      //onSelectedDepartment(event.target.value);
+      console.log(event.target.value);
+    }
+
    return (
     <Stack tokens={stackTokens}
     styles={{
@@ -32,6 +37,7 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
         //label="Basic uncontrolled example"
         options={options}
         styles={dropdownStyles}
+        onChange={(e)  => handleChange(e)}
       />
     </Stack>
   );

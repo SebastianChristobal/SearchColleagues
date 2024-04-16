@@ -10,4 +10,6 @@ export interface ISearchColleaguesProps {
   context?: any;
   onSearch?: (query: string) => void;
   allUsers?: any[];
+  filteredUsers?: any[];
+  onSelectedDepartment?: any;
 }
