@@ -33,20 +33,11 @@ export const LimitSelector: React.FC<Props> = ({ onChangeLimit }) => {
     }
   };
 
-
   return (
-      <Stack tokens={stackTokens}
-      styles={{
-          root: {
-            paddingBottom: 45
-          }
-        }}
-      >
+      <Stack tokens={stackTokens} styles={{ root: { paddingBottom: 45 }}}>
         <Dropdown
           placeholder={limitValue}
-          //label="item limit:"
           options={options}
-          //defaultValue={options[0].key}
           defaultSelectedKey={options[0].key}
           selectedKey={limitValue}
           styles={dropdownStyles}
@@ -55,5 +46,4 @@ export const LimitSelector: React.FC<Props> = ({ onChangeLimit }) => {
       </Stack>
   );
 };
-
 export default LimitSelector;
