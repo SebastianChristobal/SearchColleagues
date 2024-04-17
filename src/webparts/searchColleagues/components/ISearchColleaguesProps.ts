@@ -9,7 +9,8 @@ export interface ISearchColleaguesProps {
   absoluteSiteUrl?:string;
   context?: any;
   onSearch?: (query: string) => void;
-  allUsers?: any[];
+  fetchedUsers?: any[];
   filteredUsers?: any[];
   onSelectedDepartment?: any;
+  onSelectedLimit?: any;
 }

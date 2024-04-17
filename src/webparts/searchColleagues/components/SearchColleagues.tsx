@@ -6,9 +6,7 @@ import { fetchUsers } from './service/https';
 import { useFetch } from './hooks/useFetch';
 import { ColleaguesSearchBox } from './SearchBox';
 import { PersonCard } from './PersonCard/PersonCard';
-import { Location } from './OfficeLocation/Location';
-import { Department } from './DepartmentLocation/Department';
-import { Region } from './RegionLocation/Region';
+import { OptionMenu } from './OptionMenu/OptionMenu';
 
 
 const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
@@ -18,11 +16,12 @@ const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
   } = props;
   
   const { fetchData: getAllUsers } = useFetch(fetchUsers, context, [])
+  //const [allUsers, setAllUsers] = useState<any[]>(getAllUsers);
   const [filteredUsers, setFilteredUsers] = useState<any[]>([]);
+  const [selectedLimit, setSelectedLimit] = useState<any>('');
 
   const handleSearch = React.useCallback((value: string) => {  
     const lowerCaseValue = value.toLowerCase(); // Convert search term to lowercase
-  
     const users = getAllUsers.filter((user: any) => {
       const {
         displayName,
@@ -54,22 +53,19 @@ const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
     setFilteredUsers(users);
   }, [getAllUsers]);
 
-  console.log(getAllUsers);
+  const handleSelectedLimit = React.useCallback((limit: any):void =>{
+    setSelectedLimit(limit);
+  },[]); 
 
+  console.log(getAllUsers);
     return (
       <section className={`${styles.searchColleagues} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
           <ColleaguesSearchBox onSearch={handleSearch} />
-          <div style={{ display: 'flex', columnGap: '15px' }}>
-            <Region allUsers={getAllUsers}/>
-            <Location allUsers={getAllUsers}/>
-            <Department allUsers={getAllUsers} />
-          </div>
-          <PersonCard allUsers={getAllUsers} filteredUsers={filteredUsers}/>
+          <OptionMenu fetchedUsers={getAllUsers} onSelectedLimit={handleSelectedLimit}/>
+          <PersonCard fetchedUsers={getAllUsers} filteredUsers={filteredUsers} onSelectedLimit={selectedLimit}/>
         </div>
       </section>
     );
-  
 }
-
 export default SearchColleges;

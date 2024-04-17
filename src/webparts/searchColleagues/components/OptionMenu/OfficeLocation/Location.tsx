@@ -1,15 +1,15 @@
 import * as React from "react"
-import { ISearchColleaguesProps } from "../ISearchColleaguesProps"
+import { ISearchColleaguesProps } from "../../ISearchColleaguesProps"
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/Dropdown';
 
-const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left'}};
+const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left', minWidth:283}};
 const stackTokens: IStackTokens = { childrenGap: 20 };
 
- export const Location: React.FC<ISearchColleaguesProps> = ({allUsers}) =>{
+ export const Location: React.FC<ISearchColleaguesProps> = ({fetchedUsers}) =>{
 
     const uniqueOfficeLocations: string[] = [];
-    allUsers?.forEach(user => {
+    fetchedUsers?.forEach(user => {
         if (uniqueOfficeLocations.indexOf(user.officeLocation) === -1) {
             uniqueOfficeLocations.push(user.officeLocation);
         }

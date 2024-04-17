@@ -1,22 +1,22 @@
 import * as React from "react"
-import { ISearchColleaguesProps } from "../ISearchColleaguesProps"
+import { ISearchColleaguesProps } from "../../ISearchColleaguesProps"
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/Dropdown';
 
-const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left'}};
+const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left', minWidth:283}};
 const stackTokens: IStackTokens = { childrenGap: 20 };
 
- export const Department: React.FC<ISearchColleaguesProps> = ({allUsers}) =>{
+ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers}) =>{
 
-    const uniqueDepartment: string[] = [];
-    allUsers?.forEach(user => {
-        if (uniqueDepartment.indexOf(user.department) === -1) {
-            uniqueDepartment.push(user.department);
+    const uniqueRegionLocation: string[] = [];
+    fetchedUsers?.forEach(user => {
+        if (uniqueRegionLocation.indexOf(user.country) === -1) {
+          uniqueRegionLocation.push(user.country);
         }
     });
-    const options: IDropdownOption[] = uniqueDepartment?.map(department => ({
-        key: department.replace(/\s+/g, ''), // Remove whitespace from keys
-        text: department,
+    const options: IDropdownOption[] = uniqueRegionLocation?.map(country => ({
+        key: country.replace(/\s+/g, ''), // Remove whitespace from keys
+        text: country,
     })).sort();
 
     const handleChange = (event: any): void =>{
@@ -33,7 +33,7 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
       }}
     >
       <Dropdown
-        placeholder="Select department"
+        placeholder="Select country"
         //label="Basic uncontrolled example"
         options={options}
         styles={dropdownStyles}
