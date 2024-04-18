@@ -5,33 +5,34 @@
   padding: 1em;
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
+
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
 }
-
 .welcome {
   text-align: center;
 }
 .searchBox {
   height: 50px;
-  border-radius: 10px 10px 10px 10px;
+  border: solid rgb(32, 143, 227);
 }
-
+.searchBox:hover {
+  height: 50px;
+  border: solid rgb(32, 143, 227);
+}
 .searchBoxActive {
   height: 50px;
-  border-radius: 10px 10px 10px 10px;
-  border : solid rgb(0, 120, 212);
+  border: solid rgb(0, 120, 212);
 }
 .searchBoxActive:hover {
-  border : solid rgb(0, 120, 212);
+  height: 50px;
+  border: solid rgb(0, 120, 212);
 }
-
 .welcomeImage {
   width: 100%;
   max-width: 420px;
 }
-
 .links {
   a {
     text-decoration: none;
