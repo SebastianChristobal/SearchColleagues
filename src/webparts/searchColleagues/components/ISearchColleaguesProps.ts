@@ -9,8 +9,17 @@ export interface ISearchColleaguesProps {
   absoluteSiteUrl?:string;
   context?: any;
   onSearch?: (query: string) => void;
+  onSelectedRegion?:  (query: string) => void;
+  onSelectedLocation?: (query: string) => void;
+  onSelectedDepartment?:(query: string) => void;
+  onHandleRefreshRegion?:(query: any) => void;
   fetchedUsers?: any[];
   filteredUsers?: any[];
-  onSelectedDepartment?: any;
   onSelectedLimit?: any;
+  onRegionChange?: string;
+  onLocationChange?:string;
+  disabled?: boolean;
+  checked?: boolean;
+  onReset?:any;
+  onResetRegion?: any;
 }
