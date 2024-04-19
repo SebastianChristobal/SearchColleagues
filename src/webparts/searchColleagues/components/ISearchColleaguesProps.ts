@@ -12,7 +12,9 @@ export interface ISearchColleaguesProps {
   onSelectedRegion?:  (query: string) => void;
   onSelectedLocation?: (query: string) => void;
   onSelectedDepartment?:(query: string) => void;
-  onHandleRefreshRegion?:(query: any) => void;
+  onHandleResetRegion?:(query: any) => void;
+  onHandleResetLocation?:(query: any) => void;
+  onHandleResetDepartment?:(query: any) => void;
   fetchedUsers?: any[];
   filteredUsers?: any[];
   onSelectedLimit?: any;
@@ -22,4 +24,6 @@ export interface ISearchColleaguesProps {
   checked?: boolean;
   onReset?:any;
   onResetRegion?: any;
+  onResetLocation?: any;
+  onResetDepartment?:any;
 }

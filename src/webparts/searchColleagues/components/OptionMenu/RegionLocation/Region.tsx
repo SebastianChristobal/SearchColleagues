@@ -6,15 +6,25 @@ import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/
 const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left', minWidth:283}};
 const stackTokens: IStackTokens = { childrenGap: 20 };
 
-export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelectedRegion, onResetRegion}) =>{
+export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelectedRegion, onResetRegion, onHandleResetRegion}) =>{
   const [initialRegionLocation, setInitialRegionLocation] = React.useState<any[]>([]);
-  //const [uniqueRegionLocation, setUniqueRegionLocation] = React.useState<any[]>(initialRegionLocation);
- // const [selectedValue, setSelectedValue] = React.useState<string | undefined>(undefined);
-
+  const  [selectedRegionKey , setSelectedRegionKey] = React.useState<any>('');
    // Reset dropdown to initial state when onRefreshRegion is true
    React.useEffect(() => {
     if (onResetRegion) {
-      setInitialRegionLocation([]);
+      const uniqueCountries = fetchedUsers?.reduce((accumulator: string[], user) => {
+        if (!accumulator.includes(user.country)) {
+          return [...accumulator, user.country];
+        }
+        return accumulator;
+      }, []);
+      setSelectedRegionKey('');
+      setInitialRegionLocation(uniqueCountries || []);
+    }
+    return () =>{
+      if(onHandleResetRegion){
+        onHandleResetRegion(false);
+       }
     }
   }, [onResetRegion]);
 
@@ -30,8 +40,6 @@ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelect
     
   }, [fetchedUsers]);
 
-
-
   const options: IDropdownOption[] = initialRegionLocation?.map(country => ({
     key: country.replace(/\s+/g, ''), // Remove whitespace from keys
     text: country,
@@ -39,11 +47,14 @@ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelect
 
   const handleChange = React.useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number): void =>{
     const selectedRegion = option?.text || '';
-
+    const selectedKey = option?.key || ''
+    setSelectedRegionKey(selectedKey);
     if (onSelectedRegion) {
       onSelectedRegion(selectedRegion);
     }
   },[onSelectedRegion]);
+
+  console.log(onResetRegion);
 
   return (
     <Stack tokens={stackTokens}
@@ -58,6 +69,7 @@ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelect
         options={options}
         styles={dropdownStyles}
         onChange={handleChange}
+        selectedKey={selectedRegionKey}
       />
     </Stack>
   );

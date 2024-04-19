@@ -8,9 +8,6 @@ import LimitSelector from './LimitSelector';
 import { Label } from 'office-ui-fabric-react';
 import { ResetOptions } from './ResetOptions';
 
-
-
-
 export const OptionMenu: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelectedLimit}) =>{
 
     const users = fetchedUsers;
@@ -27,16 +24,19 @@ export const OptionMenu: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSe
       setSelectedRegion(selectedRegion);
     },[]);
 
-    const handleSelectedLocation = React.useCallback((selectedRegion: string): void =>{
-      setSelectedLocation(selectedRegion);
+    const handleSelectedLocation = React.useCallback((location: string): void =>{
+      setSelectedLocation(location);
     },[]);
 
-    const handleSelectedDepartment = React.useCallback((selectedRegion: string): void =>{
-      setSelectedDepartment(selectedRegion);
+    const handleSelectedDepartment = React.useCallback((department: string): void =>{
+      setSelectedDepartment(department);
     },[]);
     const handleOnReset = React.useCallback((reset: any): void =>{
       setReset(reset);
     },[])
+    const handleReset = React.useCallback((reset: any) => {
+      setReset(reset); // Set reset back to false
+  }, []);
 
 
     console.log(selectedDepartment)
@@ -46,17 +46,24 @@ export const OptionMenu: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSe
         fetchedUsers={users} 
         onSelectedRegion={handleSelectedRegion} 
         onResetRegion={reset} 
-        onHandleRefreshRegion={handleOnReset}
+        onReset={handleReset}
+        onHandleResetRegion={handleOnReset}
         />
         <Location 
         fetchedUsers={users} 
         onRegionChange={selectedRegion} 
         onSelectedLocation={handleSelectedLocation}
+        onResetLocation={reset} 
+        onReset={handleReset}
+        onHandleResetLocation={handleOnReset}
         />
         <Department 
         fetchedUsers={users} 
         onLocationChange={selectedLocation} 
         onSelectedDepartment={handleSelectedDepartment}
+        onResetDepartment={reset} 
+        onReset={handleReset}
+        onHandleResetDepartment={handleOnReset}
         />
         <ResetOptions onReset={handleOnReset}/>
         <div style={{ marginLeft: 'auto', display: 'flex', columnGap: '10px' }}>

@@ -57,7 +57,6 @@ const SearchColleges: React.FC<ISearchColleaguesProps> = (props) => {
     setSelectedLimit(limit);
   },[]); 
 
-
     return (
       <section className={`${styles.searchColleagues} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
