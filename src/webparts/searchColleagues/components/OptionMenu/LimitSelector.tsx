@@ -2,19 +2,15 @@ import * as React from 'react';
 import { useState } from 'react';
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/Dropdown';
-
 interface Props {
   onChangeLimit: (limit: number) => void;
 }
 const dropdownStyles: Partial<IDropdownStyles> = {
+dropdown:{ minWidth: 'auto', maxWidth: 100 },
 root:{
-textAlign:'left',
-minWidth: '70px',
-maxWidth: '100%', // Ensure dropdown doesn't overflow container
-width: '100%'
+textAlign:'left'
 }};
 const stackTokens: IStackTokens = { childrenGap: 10 };
-
 
 export const LimitSelector: React.FC<Props> = ({ onChangeLimit }) => {
   const [limitValue, setLimitValue] = useState<any>();
@@ -34,7 +30,7 @@ export const LimitSelector: React.FC<Props> = ({ onChangeLimit }) => {
   };
 
   return (
-      <Stack tokens={stackTokens} styles={{ root: { paddingBottom: 45 }}}>
+      <Stack tokens={stackTokens}>
         <Dropdown
           placeholder={limitValue}
           options={options}

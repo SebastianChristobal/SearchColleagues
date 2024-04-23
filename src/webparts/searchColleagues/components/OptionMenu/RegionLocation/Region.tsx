@@ -1,16 +1,18 @@
 import * as React from "react"
-import { ISearchColleaguesProps } from "../../ISearchColleaguesProps"
+import { useEffect } from "react";
+import { ISearchProps } from "../../ISearchProps"
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/Dropdown';
 
-const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left', minWidth:283}};
+const dropdownStyles: Partial<IDropdownStyles> = {dropdown:{ minWidth: 180, maxWidth: 250}, root:{textAlign:'left'}};
 const stackTokens: IStackTokens = { childrenGap: 20 };
 
-export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelectedRegion, onResetRegion, onHandleResetRegion}) =>{
+export const Region: React.FC<ISearchProps> = ({fetchedUsers, onSelectedRegion, onResetRegion, onHandleResetRegion}) =>{
   const [initialRegionLocation, setInitialRegionLocation] = React.useState<any[]>([]);
   const  [selectedRegionKey , setSelectedRegionKey] = React.useState<any>('');
-   // Reset dropdown to initial state when onRefreshRegion is true
-   React.useEffect(() => {
+   
+  // Reset dropdown to initial state when onResetRegion is true
+   useEffect(() => {
     if (onResetRegion) {
       const uniqueCountries = fetchedUsers?.reduce((accumulator: string[], user) => {
         if (!accumulator.includes(user.country)) {
@@ -18,10 +20,10 @@ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelect
         }
         return accumulator;
       }, []);
-      setSelectedRegionKey('');
       setInitialRegionLocation(uniqueCountries || []);
     }
     return () =>{
+      setSelectedRegionKey('');
       if(onHandleResetRegion){
         onHandleResetRegion(false);
        }
@@ -29,7 +31,7 @@ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelect
   }, [onResetRegion]);
 
   // Initialize initial region location when component mounts
-  React.useEffect(() => {
+  useEffect(() => {
     const uniqueCountries = fetchedUsers?.reduce((accumulator: string[], user) => {
       if (!accumulator.includes(user.country)) {
         return [...accumulator, user.country];
@@ -52,18 +54,10 @@ export const Region: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelect
     if (onSelectedRegion) {
       onSelectedRegion(selectedRegion);
     }
-  },[onSelectedRegion]);
-
-  console.log(onResetRegion);
+  },[]);
 
   return (
-    <Stack tokens={stackTokens}
-      styles={{
-        root: {
-          paddingBottom: 45
-        }
-      }}
-    >
+    <Stack tokens={stackTokens}>
       <Dropdown
         placeholder="Select country"
         options={options}

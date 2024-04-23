@@ -7,4 +7,5 @@ export interface IPersonProps {
   optionaltext?: string;
   pictureUrl?:string;
   size?: PersonaSize;
+  chat?: any;
 }

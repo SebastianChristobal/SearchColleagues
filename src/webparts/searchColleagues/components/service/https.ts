@@ -1,6 +1,6 @@
-import { ISearchColleaguesProps } from '../ISearchColleaguesProps';
+import { ISearchProps } from '../ISearchProps';
 
-export const fetchUsers = async (props: ISearchColleaguesProps): Promise<any[]> => {
+export const fetchUsers = async (props: ISearchProps): Promise<any[]> => {
     if (!props || !props.context || !props.context.msGraphClientFactory) {
         throw new Error("Props or props.context or props.context.msGraphClientFactory is undefined.");
     }

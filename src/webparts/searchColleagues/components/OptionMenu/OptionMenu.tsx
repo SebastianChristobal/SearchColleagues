@@ -1,47 +1,58 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { ISearchColleaguesProps } from '../ISearchColleaguesProps';
+import { useState, useEffect } from 'react';
+import { ISearchProps } from '../ISearchProps';
 import { Department } from './DepartmentLocation/Department';
 import { Location } from './OfficeLocation/Location';
 import { Region } from './RegionLocation/Region';
 import LimitSelector from './LimitSelector';
 import { Label } from 'office-ui-fabric-react';
 import { ResetOptions } from './ResetOptions';
+import styles from '../SearchColleagues.module.scss';
 
-export const OptionMenu: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSelectedLimit}) =>{
+export const OptionMenu: React.FC<ISearchProps> = ({fetchedUsers, onSelectedLimit, onFilteredOptions}) =>{
 
     const users = fetchedUsers;
-    const [selectedRegion, setSelectedRegion] = useState<string>('');
-    const [selectedLocation, setSelectedLocation] = useState<string>('');
-    const [selectedDepartment, setSelectedDepartment] = useState<string>('');
     const [reset, setReset] = useState<boolean>(false);
-
+    const [selectedOptionsValue, setSelectedOptionsValues] = useState({
+      selectedRegion: '',
+      selectedLocation: '',
+      selectedDepartment: ''
+      });
+ 
     const onChangeLimit = React.useCallback((limit) =>{
       onSelectedLimit(limit)
     },[]);
     
     const handleSelectedRegion = React.useCallback((selectedRegion: string): void =>{
-      setSelectedRegion(selectedRegion);
+      setSelectedOptionsValues(prevValues => ({ ...prevValues, selectedRegion: selectedRegion }));
     },[]);
 
-    const handleSelectedLocation = React.useCallback((location: string): void =>{
-      setSelectedLocation(location);
+    const handleSelectedLocation = React.useCallback((selectedLocation: string): void =>{
+      setSelectedOptionsValues(prevValues => ({ ...prevValues, selectedLocation: selectedLocation }));
     },[]);
 
-    const handleSelectedDepartment = React.useCallback((department: string): void =>{
-      setSelectedDepartment(department);
+    const handleSelectedDepartment = React.useCallback((selectedDepartment: string): void =>{
+      setSelectedOptionsValues(prevValues => ({ ...prevValues, selectedDepartment : selectedDepartment }));
     },[]);
+
     const handleOnReset = React.useCallback((reset: any): void =>{
+      setSelectedOptionsValues({
+        selectedRegion: '',
+        selectedLocation: '',
+        selectedDepartment: ''
+       });
       setReset(reset);
     },[])
     const handleReset = React.useCallback((reset: any) => {
       setReset(reset); // Set reset back to false
   }, []);
 
-
-    console.log(selectedDepartment)
+  useEffect(() =>{
+    onFilteredOptions(selectedOptionsValue);
+  },[selectedOptionsValue])
+  
     return(<>
-      <div style={{ display: 'flex', columnGap: '15px' }}>
+      <div className={styles.optionMenu}>
         <Region 
         fetchedUsers={users} 
         onSelectedRegion={handleSelectedRegion} 
@@ -51,7 +62,7 @@ export const OptionMenu: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSe
         />
         <Location 
         fetchedUsers={users} 
-        onRegionChange={selectedRegion} 
+        onRegionChange={selectedOptionsValue.selectedRegion} 
         onSelectedLocation={handleSelectedLocation}
         onResetLocation={reset} 
         onReset={handleReset}
@@ -59,7 +70,7 @@ export const OptionMenu: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onSe
         />
         <Department 
         fetchedUsers={users} 
-        onLocationChange={selectedLocation} 
+        onLocationChange={selectedOptionsValue.selectedLocation} 
         onSelectedDepartment={handleSelectedDepartment}
         onResetDepartment={reset} 
         onReset={handleReset}

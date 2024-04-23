@@ -10,7 +10,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'SearchColleaguesWebPartStrings';
 import SearchColleagues from './components/SearchColleagues';
-import { ISearchColleaguesProps } from './components/ISearchColleaguesProps';
+import { ISearchProps } from './components/ISearchProps';
 
 export interface ISearchColleaguesWebPartProps {
   description: string;
@@ -22,7 +22,7 @@ export default class SearchColleaguesWebPart extends BaseClientSideWebPart<ISear
   private _environmentMessage: string = '';
 
   public render(): void {
-    const element: React.ReactElement<ISearchColleaguesProps> = React.createElement(
+    const element: React.ReactElement<ISearchProps> = React.createElement(
       SearchColleagues,
       {
         description: this.properties.description,
@@ -31,7 +31,7 @@ export default class SearchColleaguesWebPart extends BaseClientSideWebPart<ISear
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
         context: this.context,
-        absoluteSiteUrl: this.context.pageContext.web.absoluteUrl
+        absoluteUrl: this.context.pageContext.web.absoluteUrl
       }
     );
 

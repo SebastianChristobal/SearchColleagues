@@ -10,6 +10,13 @@
     font-family: $ms-font-family-fallbacks;
   }
 }
+.documentCard{
+  display: 'inline-block';
+  margin-right: 10px;
+  margin-bottom: 10px;
+  max-width: 263px;
+  min-width: 200px;
+}
 .welcome {
   text-align: center;
 }
@@ -29,6 +36,12 @@
   height: 50px;
   border: solid rgb(0, 120, 212);
 }
+.optionMenu {
+  display: flex;
+  column-gap: 10px;
+  padding-bottom: 45px;
+}
+
 .welcomeImage {
   width: 100%;
   max-width: 420px;
@@ -45,4 +58,17 @@
       color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
     }
   }
+}
+@media only screen and (max-width: 1280) {
+  .searchColleagues {
+    width: auto;
+    padding: 1px 20px 0px 20px;
+  }
+  .optionMenu {
+    display: flex;
+    column-gap: 10px;
+    width: auto;
+    padding: 1px 20px 0px 20px;
+  }
+ 
 }

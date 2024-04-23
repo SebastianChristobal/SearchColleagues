@@ -1,37 +1,38 @@
 import * as React from "react"
-import { ISearchColleaguesProps } from "../../ISearchColleaguesProps"
+import { useEffect } from "react";
+import { ISearchProps } from "../../ISearchProps"
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react/lib/Dropdown';
 
-const dropdownStyles: Partial<IDropdownStyles> = {dropdown: { width: 300 }, root:{textAlign:'left', minWidth:283}};
+const dropdownStyles: Partial<IDropdownStyles> = {dropdown: {minWidth: 180, maxWidth: 250 }, root:{textAlign:'left'}};
 const stackTokens: IStackTokens = { childrenGap: 20 };
 
- export const Department: React.FC<ISearchColleaguesProps> = ({fetchedUsers, onLocationChange, onSelectedDepartment, onResetDepartment, onHandleResetDepartment}) =>{
+ export const Department: React.FC<ISearchProps> = ({fetchedUsers, onLocationChange, onSelectedDepartment, onResetDepartment, onHandleResetDepartment}) =>{
   const [initialDeparmentLocation, setInitialDeparmetLocation] = React.useState<any[]>([]);
   const  [selectedDeparmentKey , setSelectedDeparmentKey] = React.useState<any>('');
   const [filteredUsers, setFilteredUsers] = React.useState<any[]>([]);
 
-  //const filteredUsers = onLocationChange ? fetchedUsers?.filter(user => user.officeLocation.trim().toLowerCase() === onLocationChange.trim().toLowerCase()) : fetchedUsers;
   // Reset dropdown to initial state when onRefreshRegion is true
-  React.useEffect(() => {
+ useEffect(() => {
     if (onResetDepartment) {
-      const uniqueDepartment = filteredUsers?.reduce((accumulator: string[], user) => {
+      const uniqueDepartment = fetchedUsers?.reduce((accumulator: string[], user) => {
         if (!accumulator.includes(user.department)) {
           return [...accumulator, user.department];
         }
         return accumulator;
       }, []);
-      setSelectedDeparmentKey('');
+     
       setInitialDeparmetLocation(uniqueDepartment || []);
     }
     return () =>{
+      setSelectedDeparmentKey('');
       if(onHandleResetDepartment){
         onHandleResetDepartment(false);
        }
     }
   }, [onResetDepartment]);
    // Update filteredUsers when onLocationChange changes or fetchedUsers initially loads
-   React.useEffect(() => {
+  useEffect(() => {
     const filtered = onLocationChange ?
           fetchedUsers?.filter(user => user.officeLocation.trim().toLowerCase() === onLocationChange.trim().toLowerCase()) :
           fetchedUsers || [];
@@ -41,7 +42,7 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
 
 
  // Initialize initial Department location when component mounts
- React.useEffect(() => {
+useEffect(() => {
   const uniqueDepartment = filteredUsers?.reduce((accumulator: string[], user) => {
     if (!accumulator.includes(user.department)) {
       return [...accumulator, user.department];
@@ -68,13 +69,7 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
     },[onSelectedDepartment]);
 
    return (
-    <Stack tokens={stackTokens}
-    styles={{
-        root: {
-          paddingBottom: 45
-        }
-      }}
-    >
+    <Stack tokens={stackTokens}>
       <Dropdown
         placeholder="Select department"
         //label="Basic uncontrolled example"

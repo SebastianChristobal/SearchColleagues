@@ -108,7 +108,8 @@ export const Person: React.FunctionComponent<IPersonProps> = (
                     tertiaryText: { display: "block", maxWidth: 230 },
                     optionalText: { display: "block", maxWidth: 230 },
                     root: {
-                        margin: 10
+                        margin: 10,
+                        height:25
                       }
                 }}
             />

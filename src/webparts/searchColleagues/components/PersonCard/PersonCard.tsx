@@ -1,78 +1,80 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   DocumentCard,
-  //DocumentCardActivity,
   DocumentCardTitle,
   DocumentCardDetails,
   DocumentCardImage,
-  IDocumentCardStyles,
- // IDocumentCardActivityPerson,
+  IDocumentCardStyles
 } from '@fluentui/react/lib/DocumentCard';
-
-//import { IIconProps } from '@fluentui/react/lib/Icon';
+import { IIconProps } from '@fluentui/react';
+import { IconButton } from '@fluentui/react/lib/Button';
 import { ImageFit } from '@fluentui/react/lib/Image';
-//import { TestImages } from '@fluentui/example-data';
-import { ISearchColleaguesProps } from '../ISearchColleaguesProps';
+import { ISearchProps } from '../ISearchProps';
 import { Person } from '../Persona/Person';
 import { Loading } from './LoadingSpinner';
+import styles from '../SearchColleagues.module.scss';
 
+const emojiIcon: IIconProps = { iconName: 'Chat' };
 const cardStyles: IDocumentCardStyles = {
   root: { display: 'inline-block', marginRight: 10, marginBottom: 10, width: 300, maxWidth: 280 },
 };
 
-export const PersonCard: React.FC<ISearchColleaguesProps> = ({fetchedUsers, filteredUsers, onSelectedLimit, ...props}) => {
-  //const { absoluteSiteUrl } = props;
-  //console.log(absoluteSiteUrl);
+export const PersonCard: React.FC<ISearchProps> = ({fetchedUsers, filteredUsers, onSelectedLimit, absoluteUrl}) => {
   const [allUsers, setAllUsers] = useState<any[]>([]);
+  const absoluteSiteUrl = absoluteUrl;
 
-  React.useEffect(() => {
+ useEffect(() => {
     const initialize = (): void => {
-        const users = fetchedUsers; // Access data directly, not as a function
+        const users = filteredUsers?.length !== undefined &&  filteredUsers?.length < 1 ? fetchedUsers : filteredUsers; // Access data directly, not as a function
         const limitedUsers = users?.slice(0, onSelectedLimit || 10);
         setAllUsers(limitedUsers || [] );
- 
     };
     initialize();
-  }, [fetchedUsers, onSelectedLimit]);
+  }, [fetchedUsers, onSelectedLimit, filteredUsers]);
+  const users = allUsers.sort((a, b) => a.displayName.localeCompare(b.displayName));
 
-
-  const users = filteredUsers && filteredUsers.length > 0 ? filteredUsers : allUsers;
-  console.log(allUsers);
   return (
     <>
   {users && users.length > 0 ? (
-  users.map((colleagues: any) => (
+  users.map((user: any) => (
     <DocumentCard
-      key={colleagues.Id}
+    className={styles.documentCard}
+      key={user.userPrincipalName}
       aria-label={
         'Document Card with image. How to make a good design. ' +
         'Last modified by Annie Lindqvist and 2 others in March 13, 2018.'
       }
       styles={cardStyles}
-      onClickHref="http://bing.com"
+      //onClickHref="http://bing.com"
     >
-      {colleagues.userPrincipalName && (
+      {user.userPrincipalName && (
         <DocumentCardImage
-          height={140}
+          height={100}
           imageFit={ImageFit.cover}
-          styles={{ root: { display: 'inline-block', width: '50%', height: '80%', borderRadius: '100px', marginTop: '10px' } }}
-          imageSrc={colleagues.userPrincipalName && `https://ionii.sharepoint.com/_layouts/15/userphoto.aspx?size=L&username=${encodeURIComponent(colleagues.userPrincipalName.toLowerCase())}`}
+          styles={{ root: { display: 'inline-block', width: '40%', borderRadius: '100px', marginTop: '10px' } }}
+          imageSrc={user.userPrincipalName && `${absoluteSiteUrl}/_layouts/15/userphoto.aspx?size=L&username=${encodeURIComponent(user.userPrincipalName.toLowerCase())}`}
         />
       )}
       <DocumentCardDetails>
-        <DocumentCardTitle title={colleagues.displayName} shouldTruncate />
+        <DocumentCardTitle title={user.displayName} shouldTruncate />
         <Person
-          text={colleagues?.jobTitle}
-          secondaryText={colleagues?.department}
-          // tertiaryText={colleagues?.onPremisesExtensionAttributes?.[extensionAttributeValue]}
-          optionaltext={colleagues?.officeLocation}
-          userEmail={colleagues?.mail === null ? colleagues.userPrincipalName : colleagues?.mail}
-          //pictureUrl={colleagues?.pictureUrl}
-          //size={PersonaSize.size40}
+          text={user.jobTitle}
+          secondaryText={user.department}
+          optionaltext={user.officeLocation}
+          userEmail={user.mail === null ? user.userPrincipalName : user.mail}
         />
+        <div style={{ marginLeft: 'auto'}}>
+        <IconButton iconProps={emojiIcon} title="Chat" ariaLabel="Chat"  onClick={ (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        window.open(
+          `https://teams.microsoft.com/l/chat/0/0?users=${user.userPrincipalName}&message=Hi ${user.displayName} `,
+          "_blank"
+        );
+      }} />
+        </div>
       </DocumentCardDetails>
-      {/* <DocumentCardActivity activity="Modified March 13, 2018" people={people.slice(0, 3)} /> */}
     </DocumentCard>
   ))) : (<Loading />)}  
     </>
