@@ -54,6 +54,22 @@ Short summary on functionality and used technologies.
 
 Description of the extension that expands upon high-level summary above.
 
+Search Collegues
+Description: A search function that retrieves all users within an organization and displays them in a grid view with a default limit of 10 users. When you start searching, the results are filtered based on the properties retrieved from the user profile.
+Technics: SPFX, REACT, TypeScript, Fluent UI, Graph API, SharePoint Online
+
+![Bild1](https://github.com/user-attachments/assets/269498fe-bf0d-442c-b4a5-9ef6060ab512)
+
+
+When you select a country from the dropdown menu, the other dropdown menus are filtered based on the selected country and its departments and locations.
+
+![Bild2](https://github.com/user-attachments/assets/a50a918d-369a-45d2-8cd8-64ae8bae835c)
+
+Extra feature: A clickable chat icon that opens Teams and starts a conversation with the specified person.
+
+![Bild3](https://github.com/user-attachments/assets/a81132ea-e606-4936-a656-bfa591189f9b)
+
+
 This extension illustrates the following concepts:
 
 - topic 1
